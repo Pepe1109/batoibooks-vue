@@ -2138,17 +2138,6 @@
       "soldDate": ""
     },
     {
-      "id": "2",
-      "userId": 2,
-      "moduleCode": "0012",
-      "publisher": "McGraw-Hill",
-      "price": 70,
-      "pages": 220,
-      "status": "bad",
-      "comments": "Tapa desgastada",
-      "soldDate": ""
-    },
-    {
       "id": "3",
       "userId": 1,
       "moduleCode": "0013",
@@ -2158,17 +2147,6 @@
       "status": "good",
       "comments": "Perfecto para repasar",
       "soldDate": "2025-05-02"
-    },
-    {
-      "id": "4",
-      "userId": 3,
-      "moduleCode": "0014",
-      "publisher": "McGraw-Hill",
-      "price": 40,
-      "pages": 310,
-      "status": "good",
-      "comments": "",
-      "soldDate": ""
     },
     {
       "id": "5",
@@ -2323,6 +2301,16 @@
       "status": "bad",
       "comments": "gfhgfhgfhhgfhgf",
       "soldDate": "0203-01-02"
+    },
+    {
+      "id": "19",
+      "userId": 2,
+      "moduleCode": "0012",
+      "publisher": "Apunts",
+      "price": 60,
+      "pages": 500,
+      "status": "good",
+      "comments": ""
     }
   ]
 }
