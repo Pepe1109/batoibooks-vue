@@ -1,155 +1,386 @@
+/* --- 1. Variables y Configuración Base --- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  /* Paleta de colores moderna */
+  --primary-color: #6366f1; /* Indigo */
+  --primary-hover: #4f46e5;
+  --secondary-color: #ec4899; /* Pink moderno */
+  --background-color: #f8fafc; /* Gris muy claro para el fondo */
+  --surface-color: #ffffff; /* Blanco para tarjetas */
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  
+  /* Estados */
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+  --error-bg: #fee2e2;
+  --error-text: #991b1b;
+
+  /* Sombras suaves */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-main);
+  background-color: var(--background-color);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* --- 2. Estructura General --- */
 body {
   margin: 0;
-  display: block;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 #app {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+}
+
+/* Header y Logo */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: -webkit-linear-gradient(315deg, var(--primary-color) 25%, var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0.5rem 0;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 5em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+  filter: drop-shadow(0 0 2em rgba(99, 102, 241, 0.5));
 }
 
-/* Estilos de la lista y tarjetas */
-#list {
+/* --- 3. Navegación (AppMenu) --- */
+nav ul {
+  list-style: none;
+  padding: 0;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 1em;
-  margin-top: 2em;
+  gap: 1.5rem;
+  background: var(--surface-color);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
 }
 
-.book-grid {
-  display: flex;
-  flex-wrap: wrap;
+nav a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  background-color: #eff6ff;
+}
+
+/* --- 4. Formularios (BookForm) --- */
+form {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  display: grid;
   gap: 1rem;
-  justify-content: center;
 }
 
-.card {
-  background-color: #ffb6c1;
-  color: #000;
-  border-radius: 10px;
-  padding: 1em;
-  width: 200px;
+form h2 {
   text-align: center;
-  border: 1px solid #ccc;
-  margin: 0.5rem;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-main);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* Importante para que no se salga */
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Radio buttons group */
+form div > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* --- 5. Botones --- */
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+button[type="submit"] {
+  background-color: var(--primary-color);
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+button[type="button"] {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+button[type="button"]:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+}
+
+/* Botones pequeños de las cards */
+.card-buttons button {
+  padding: 0.5rem;
+  background: #f1f5f9;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.card-buttons button:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* --- 6. Lista de Libros (Grid System) --- */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* --- 7. Tarjeta de Libro (BookItem) --- */
+.card {
+  background-color: var(--surface-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left; /* Alineado a la izquierda es más legible */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
 }
 
 .card img {
-  max-width: 100px;
+  width: 120px;
+  height: 160px; /* Altura fija para uniformidad */
+  object-fit: cover; /* Recorta la imagen si no cabe */
+  border-radius: 8px;
+  margin: 0 auto 1rem auto;
+  box-shadow: var(--shadow-md);
   display: block;
-  margin: 0 auto 10px;
+}
+
+.card-info h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.card-info h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.card-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.2rem 0;
+}
+
+.card-info strong {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-top: 0.5rem;
+  text-align: right;
 }
 
 .card-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-
-/* Botones */
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-
-/* Modo claro */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-footer {
-  padding: 2em 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin-top: 4em;
-}
-
-/* Mensajes de alerta */
-.alert {
-  padding: 1em;
-  margin: 1em 0;
-  border-radius: 5px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
 }
+
+/* --- 8. Totales --- */
+.totals {
+  background: var(--text-main);
+  color: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+/* --- 9. Mensajes (Alerts) --- */
+#messages {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
+  font-weight: 500;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 .alert-info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
+  background-color: var(--surface-color);
+  border-left: 5px solid var(--primary-color);
+  color: var(--text-main);
 }
+
 .alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background-color: var(--surface-color);
+  border-left: 5px solid var(--error-text);
+  color: var(--error-text);
 }
+
+.alert-success { /* Por si usas success */
+  background-color: var(--surface-color);
+  border-left: 5px solid var(--success-text);
+  color: var(--success-text);
+}
+
 .btn-close {
   background: none;
   border: none;
-  font-weight: bold;
+  font-size: 1.2rem;
   cursor: pointer;
+  opacity: 0.5;
+  padding: 0;
+  margin-left: 10px;
+}
+.btn-close:hover {
+  opacity: 1;
+  background: transparent;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+/* Ajuste Dark Mode (Si el sistema lo pide) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+  }
+  
+  input, select, textarea {
+    background-color: #0f172a;
+    color: white;
+  }
+  
+  .card-buttons button {
+    background: #334155;
+    color: white;
+  }
 }

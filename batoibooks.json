@@ -2127,26 +2127,15 @@
   ],
   "books": [
     {
-      "id": "1",
       "userId": 1,
       "moduleCode": "0011",
       "publisher": "Apunts",
       "price": 25.5,
-      "pages": 180,
+      "pages": 181,
       "status": "good",
       "comments": "Usado pero en buen estado",
+      "id": "1",
       "soldDate": ""
-    },
-    {
-      "id": "3",
-      "userId": 1,
-      "moduleCode": "0013",
-      "publisher": "Apunts",
-      "price": 15.75,
-      "pages": 140,
-      "status": "good",
-      "comments": "Perfecto para repasar",
-      "soldDate": "2025-05-02"
     },
     {
       "id": "5",
@@ -2171,14 +2160,14 @@
       "soldDate": ""
     },
     {
-      "id": "7",
       "userId": 5,
       "moduleCode": "0017",
       "publisher": "Apunts",
-      "price": 19.99,
+      "price": 20,
       "pages": 190,
       "status": "good",
       "comments": "Nuevo sin estrenar",
+      "id": "7",
       "soldDate": ""
     },
     {
@@ -2311,6 +2300,26 @@
       "pages": 500,
       "status": "good",
       "comments": ""
+    },
+    {
+      "id": "20",
+      "userId": 2,
+      "moduleCode": "0047",
+      "publisher": "McGraw-Hill",
+      "price": 1,
+      "pages": 555,
+      "status": "bad",
+      "comments": "horrible"
+    },
+    {
+      "id": "21",
+      "userId": 2,
+      "moduleCode": "0045",
+      "publisher": "Apunts",
+      "price": 1,
+      "pages": 1,
+      "status": "good",
+      "comments": "fdf"
     }
   ]
 }

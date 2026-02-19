@@ -1,45 +1,51 @@
 <template>
   <section id="list">
-    <h2>Lista de Libros</h2>
-    
     <div class="book-grid">
       <BookItem 
         v-for="book in books" 
         :key="book.id" 
         :book="book"
-        @remove="$emit('remove', $event)" 
+        @remove="borrarLibro"
+        @edit="$router.push(`/edit/${book.id}`)"
       />
     </div>
 
     <div class="totals" v-if="books.length > 0">
-      <p>Total de libros: <strong>{{ totalBooks }}</strong></p>
-      <p>Importe total: <strong>{{ totalImport }} €</strong></p>
+      <p>Total de libros: <strong>{{ books.length }}</strong></p>
     </div>
-    <p v-else>No hay libros disponibles.</p>
+    <p v-else style="text-align: center;">No hay libros disponibles.</p>
   </section>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
+import api from '../services/api'
 import BookItem from './BookItem.vue'
 
-const props = defineProps({
-  books: Array
+const books = ref([])
+
+const cargarLibros = async () => {
+  try {
+    const res = await api.get('/books')
+    books.value = res.data
+  } catch (error) {
+    console.error("Error al cargar:", error)
+  }
+}
+
+onMounted(() => {
+  cargarLibros()
 })
 
-// Reemitimos el evento de borrado hacia App.vue
-defineEmits(['remove'])
-
-// Propiedades computadas para los totales
-const totalBooks = computed(() => props.books.length)
-const totalImport = computed(() => {
-  return props.books
-    .reduce((acc, book) => acc + Number(book.price), 0)
-    .toFixed(2)
-})
+const borrarLibro = async (id) => {
+  if (confirm(`¿Seguro que quieres borrar el libro con ID ${id}?`)) {
+    try {
+      await api.delete(`/books/${id}`)
+      await cargarLibros() // Recarga automática
+      alert('Libro borrado correctamente')
+    } catch (error) {
+      alert('Error al borrar: ' + error.message)
+    }
+  }
+}
 </script>
-
-<style scoped>
-.book-grid { display: flex; flex-wrap: wrap; gap: 1em; justify-content: center; }
-.totals { margin-top: 2em; padding: 1em; background-color: #f0f0f0; border-radius: 5px; color: #333;}
-</style>
