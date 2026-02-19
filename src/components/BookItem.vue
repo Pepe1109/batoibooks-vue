@@ -13,9 +13,7 @@
     </div>
     
     <div class="card-buttons">
-      <button @click="$emit('cart', book.id)" title="Al carrito">🛒</button>
-      <button @click="$emit('edit', book.id)" title="Editar">✏️</button>
-      <button @click="$emit('remove', book.id)" title="Borrar">🗑️</button>
+      <slot name="buttons"></slot>
     </div>
   </div>
 </template>
@@ -24,5 +22,4 @@
 defineProps({
   book: Object
 })
-defineEmits(['remove', 'edit', 'cart'])
 </script>

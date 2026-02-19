@@ -5,15 +5,25 @@
         v-for="book in books" 
         :key="book.id" 
         :book="book"
-        @remove="borrarLibro"
-        @edit="$router.push(`/edit/${book.id}`)"
-      />
+      >
+        <template #buttons>
+          <button 
+            @click="$emit('add-to-cart', book)" 
+            title="Añadir al carrito"
+            :disabled="cart.some(b => b.id === book.id)"
+            :style="{ opacity: cart.some(b => b.id === book.id) ? 0.5 : 1, cursor: cart.some(b => b.id === book.id) ? 'not-allowed' : 'pointer' }"
+          >🛒</button>
+          
+          <button @click="$router.push(`/edit/${book.id}`)" title="Editar">✏️</button>
+          <button @click="borrarLibro(book.id)" title="Borrar">🗑️</button>
+        </template>
+      </BookItem>
     </div>
 
     <div class="totals" v-if="books.length > 0">
-      <p>Total de libros: <strong>{{ books.length }}</strong></p>
+      <p>Total de libros en BD: <strong>{{ books.length }}</strong></p>
     </div>
-    <p v-else style="text-align: center;">No hay libros disponibles.</p>
+    <p v-else style="text-align: center;">No hay libros disponibles en la BD.</p>
   </section>
 </template>
 
@@ -21,6 +31,12 @@
 import { ref, onMounted } from 'vue'
 import api from '../services/api'
 import BookItem from './BookItem.vue'
+
+defineProps({
+  cart: { type: Array, default: () => [] }
+})
+
+defineEmits(['add-to-cart'])
 
 const books = ref([])
 
@@ -33,15 +49,13 @@ const cargarLibros = async () => {
   }
 }
 
-onMounted(() => {
-  cargarLibros()
-})
+onMounted(() => cargarLibros())
 
 const borrarLibro = async (id) => {
   if (confirm(`¿Seguro que quieres borrar el libro con ID ${id}?`)) {
     try {
       await api.delete(`/books/${id}`)
-      await cargarLibros() // Recarga automática
+      await cargarLibros() 
       alert('Libro borrado correctamente')
     } catch (error) {
       alert('Error al borrar: ' + error.message)

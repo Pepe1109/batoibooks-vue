@@ -60,6 +60,9 @@ import { reactive, ref, onMounted, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '../services/api'
 
+// Declaramos que recibimos la prop cart (aunque no la usemos aquí) para que Vue no chille
+defineProps({ cart: Array })
+
 const route = useRoute()
 const router = useRouter()
 const modules = ref([])
