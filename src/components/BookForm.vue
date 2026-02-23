@@ -107,6 +107,6 @@ const guardarLibro = async () => {
     alert('Error al guardar: ' + error.message)
   }
 }
-
+//
 const resetForm = () => loadData()
 </script>
